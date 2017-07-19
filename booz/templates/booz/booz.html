@@ -1,0 +1,24 @@
+<a class="lead" href="{% url 'booz_detail' pk=booz.pk %}">
+    <span class="btn btn-danger">{{ booz.subject_matter|upper }}</span></a>
+{% if booz.text %}
+  <br><p>{{ booz.text|truncatechars:200 }}<a href="{% url 'booz_detail' pk=booz.pk %}">more</a> </p>
+{% endif %}
+{% if not booz.is_public %}
+  <br><span class="label label-warning">private</span>
+{% else %}
+    <br>
+{% endif %}
+{% if booz.via %}
+  <br><a href="{{ booz.via }}">source</a>
+{% endif %}
+<br>by <a href="{% url "booz_user" booz.owner.username %}">
+    <span class="btn btn-primary">@{{ booz.owner.username|lower }}</span></a>
+{{ booz.created_on|timesince }} ago
+<br>
+Comments: {{ booz.comments.count }}
+Likes:  {{ booz.likes.count }}
+{% if booz.owner == user or user.is_superuser %}
+  <br><a class="btn btn-default btn-xs" role="button"
+      href="{% url "booz_edit" booz.pk %}">Edit booz</a>
+{% endif %}
+

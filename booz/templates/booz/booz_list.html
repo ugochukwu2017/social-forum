@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Latest booz{% endblock %}
+
+{% block heading %}
+  <h2>Latest booz</h2>
+{% endblock %}
+
+{% block content %}
+  <ul class="list-unstyled">
+  {% for booz in boozs %}
+    <li class="well well-sm">{% include "booz/booz.html" %}</li>
+  {% empty %}
+    <li>No booz. :(</li>
+  {% endfor %}
+  </ul>
+{% endblock %}

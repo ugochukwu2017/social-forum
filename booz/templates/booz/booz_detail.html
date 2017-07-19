@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ booz.subject_matter|upper }}</h1>
+<p>{{ booz.text|linebreaksbr }}</p>
+<br>by <a href="{% url "booz_user" booz.owner.username %}">
+    {{ booz.owner.username }}</a>
+{{ booz.created_on|timesince }} ago
+<hr>
+<a class="btn btn-success" href="{% url 'add_comment_to_booz' pk=booz.pk %}">Add comment</a>
+<a class="btn btn-success" href="{% url 'add_like_to_booz' pk=booz.pk %}">Like</a>
+<br>
+<a class="btn btn-default"> Comments: {{ booz.comments.count }}</a>
+<a class="btn btn-default">  Likes:  {{ booz.likes.count }}</a>
+<br><br>
+{% for comment in booz.comments.all %}
+{% if booz.owner == user %}
+<a class="btn btn-danger" href="{% url 'comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove">Delete Comment</span></a>
+{% endif %}
+    <div class="comment">
+             <div class="date">
+            {{ comment.created_date }}
+        </div>
+        <strong>@{{ comment.author }}</strong>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div>
+{% empty %}
+    <p>No comments here yet :(</p>
+{% endfor %}
+<a class="btn btn-success" href="{% url 'booz_list' %}"> < Back to Homepage </a>
+{% endblock %}
+

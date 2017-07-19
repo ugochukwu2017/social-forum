@@ -1,0 +1,14 @@
+{% extends "booz/booz_list.html" %}
+{% load booz_tags %}
+
+{% block title %}{{ owner.username }}'s booz{% endblock %}
+
+{% block heading %}
+  <h2>{{ owner.username }}'s booz<br>
+    <small>{{ boozs.count }} booz in total</small>
+  </h2>
+{% endblock %}
+
+{% block side %}
+  {% tagcloud owner %}
+{% endblock %}

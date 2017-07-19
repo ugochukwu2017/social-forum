@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>This encourages to do more. <p>Appreciate the support</h1>
+    <form method="POST" class="booz-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-success"> << HIT IT >> </button>
+    </form>
+{% endblock %}
